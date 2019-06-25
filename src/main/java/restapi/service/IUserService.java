@@ -10,5 +10,7 @@ public interface IUserService {
 
     User findUserById(long id);
 
-    User updateUser(User user);
+    User saveOrUpdateUser(User user);
+
+    User findUserByUserADid(String userADid);
 }

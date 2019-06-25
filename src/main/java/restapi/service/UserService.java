@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    public UserService(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<User> findAll() {
@@ -24,7 +27,9 @@ public class UserService implements IUserService {
         return repository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public User updateUser(User user){
+    public User saveOrUpdateUser(User user){
         return repository.save(user);
     }
+
+    public User findUserByUserADid(String userADid) {return repository.findUserByUserADid(userADid);}
 }

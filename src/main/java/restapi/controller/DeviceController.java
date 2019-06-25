@@ -1,19 +1,31 @@
 package restapi.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import restapi.model.Device;
 import restapi.service.IDeviceService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class DeviceController {
 
-    @Autowired
-    private IDeviceService deviceService;
+    private final IDeviceService deviceService;
 
-    @GetMapping(value = "/device")
-    public Device device(@RequestParam(value="deviceID", defaultValue="0") long deviceID) {
-        return deviceService.findDeviceById(deviceID);
+    public DeviceController(IDeviceService deviceService) {
+        this.deviceService = deviceService;
     }
 
+    @GetMapping(value = "/device")
+    public  ResponseEntity<?> device(@CookieValue(value = "id_token") String id_token, @RequestParam(value="deviceID", defaultValue="0") long deviceID) {
+        if(JWTHelper.isUserAuthenticated(id_token))
+        {
+            return new ResponseEntity<>(deviceService.findDeviceById(deviceID),
+                    HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>("Unauthorized access.",
+                    HttpStatus.UNAUTHORIZED);
+        }
+    }
 }
