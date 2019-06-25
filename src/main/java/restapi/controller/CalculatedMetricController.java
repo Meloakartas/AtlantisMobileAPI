@@ -1,10 +1,7 @@
 package restapi.controller;
 
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import restapi.model.CalculatedMetric;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -12,7 +9,7 @@ import java.util.List;
 @RestController
 public class CalculatedMetricController {
 
-        @RequestMapping(value = "/calculatedMetrics", method = RequestMethod.GET)
+        @GetMapping(value = "/calculatedMetrics")
     public List<CalculatedMetric> calculatedMetrics(
             @RequestParam(value="deviceID", defaultValue="0") long deviceID,
             @RequestParam(value="metricTypeID", defaultValue="0") long metricTypeID,
