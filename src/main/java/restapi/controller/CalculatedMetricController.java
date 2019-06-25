@@ -1,9 +1,6 @@
-package hello;
+package restapi.controller;
 
-import hello.model.CalculatedMetric;
-import hello.model.Device;
-import hello.service.IDeviceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import restapi.model.CalculatedMetric;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

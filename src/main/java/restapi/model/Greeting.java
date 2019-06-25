@@ -1,4 +1,4 @@
-package hello;
+package restapi.model;
 
 public class Greeting {
 

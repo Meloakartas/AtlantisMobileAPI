@@ -1,7 +1,7 @@
-package hello.service;
+package restapi.service;
 
-import hello.model.Device;
-import hello.repository.DeviceRepository;
+import restapi.model.Device;
+import restapi.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

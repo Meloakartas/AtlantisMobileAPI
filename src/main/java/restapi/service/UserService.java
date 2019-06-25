@@ -1,7 +1,7 @@
-package hello.service;
+package restapi.service;
 
-import hello.model.User;
-import hello.repository.UserRepository;
+import restapi.model.User;
+import restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

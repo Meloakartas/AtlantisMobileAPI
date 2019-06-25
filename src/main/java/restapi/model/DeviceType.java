@@ -1,4 +1,4 @@
-package hello.model;
+package restapi.model;
 
 import javax.persistence.*;
 

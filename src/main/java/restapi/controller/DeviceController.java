@@ -1,7 +1,7 @@
-package hello;
+package restapi.controller;
 
-import hello.model.Device;
-import hello.service.IDeviceService;
+import restapi.model.Device;
+import restapi.service.IDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

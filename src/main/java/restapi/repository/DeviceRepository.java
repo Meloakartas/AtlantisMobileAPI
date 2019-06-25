@@ -1,6 +1,6 @@
-package hello.repository;
+package restapi.repository;
 
-import hello.model.Device;
+import restapi.model.Device;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
