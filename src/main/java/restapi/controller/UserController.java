@@ -1,5 +1,6 @@
 package restapi.controller;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import restapi.model.Device;
 import restapi.model.User;
 import restapi.service.IUserService;
@@ -15,12 +16,12 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("/user")
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public User user(@RequestParam(value="userID", defaultValue="0") long userID) {
         return userService.findUserById(userID);
     }
 
-    @RequestMapping("/userDevices")
+    @RequestMapping(value = "/userDevices", method = RequestMethod.GET)
     public List<Device> userDevices(@RequestParam(value="userID", defaultValue="0") long userID) {
         return userService.findUserById(userID).getUserDevices();
     }

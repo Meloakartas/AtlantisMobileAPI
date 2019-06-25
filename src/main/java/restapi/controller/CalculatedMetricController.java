@@ -1,5 +1,6 @@
 package restapi.controller;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import restapi.model.CalculatedMetric;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +12,7 @@ import java.util.List;
 @RestController
 public class CalculatedMetricController {
 
-        @RequestMapping("/calculatedMetrics")
+        @RequestMapping(value = "/calculatedMetrics", method = RequestMethod.GET)
     public List<CalculatedMetric> calculatedMetrics(
             @RequestParam(value="deviceID", defaultValue="0") long deviceID,
             @RequestParam(value="metricTypeID", defaultValue="0") long metricTypeID,

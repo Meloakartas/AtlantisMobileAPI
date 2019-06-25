@@ -1,5 +1,6 @@
 package restapi.controller;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import restapi.model.Device;
 import restapi.service.IDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class DeviceController {
     @Autowired
     private IDeviceService deviceService;
 
-    @RequestMapping("/device")
+    @RequestMapping(value = "/device", method = RequestMethod.GET)
     public Device device(@RequestParam(value="deviceID", defaultValue="0") long deviceID) {
         return deviceService.findDeviceById(deviceID);
     }
