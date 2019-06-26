@@ -12,7 +12,6 @@ import java.security.spec.RSAPublicKeySpec;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import javafx.util.Pair;
 import restapi.model.Key;
 
 import java.io.BufferedReader;
