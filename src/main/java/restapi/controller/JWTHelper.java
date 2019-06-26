@@ -13,7 +13,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import restapi.model.Key;
-import javafx.util.Pair;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -116,9 +115,6 @@ class JWTHelper {
         }
         in.close();
 
-        String modulus = null;
-        String exponent = null;
-
         JSONObject myResponse = new JSONObject(response.toString());
         JSONArray keys = (JSONArray) myResponse.get("keys");
 
@@ -130,7 +126,7 @@ class JWTHelper {
             if(object.get("kid").toString().equals(kid))
             {
                 newKey.setModulus(object.get("n").toString());
-                newKey.setExponent(exponent = object.get("e").toString());
+                newKey.setExponent(object.get("e").toString());
                 break;
             }
         }
