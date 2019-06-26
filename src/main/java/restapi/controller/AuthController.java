@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.Claim;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,11 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @CrossOrigin()
     @RequestMapping("/validate")
     public ResponseEntity<?> validate(@RequestParam(name = "id_token") String id_token, HttpServletResponse response)
     {
+        System.out.println(id_token);
         if(JWTHelper.isUserAuthenticated(id_token))
         {
             Cookie cookie = new Cookie("id_token", id_token);
@@ -67,7 +70,6 @@ public class AuthController {
                 claims.get("family_name").asString().substring(0, 1).toUpperCase() + claims.get("family_name").asString().substring(1)
         );
 
-        userService.saveOrUpdateUser(userToInsert);
-        return userToInsert;
+        return userService.saveOrUpdateUser(userToInsert);
     }
 }
