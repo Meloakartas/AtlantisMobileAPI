@@ -13,6 +13,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import javafx.util.Pair;
+import restapi.model.Key;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -59,7 +61,7 @@ class JWTHelper {
     private static DecodedJWT IsTokenValid(String id_token)
     {
         DecodedJWT jwt = ParseJWT(id_token);
-        Pair modulusExponent = null;
+        Key modulusExponent = null;
 
         try {
             modulusExponent = GetModulusAndExponent(Objects.requireNonNull(jwt).getKeyId());
@@ -70,8 +72,8 @@ class JWTHelper {
         if(modulusExponent == null)
             return null;
 
-        BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(modulusExponent.getKey().toString()));
-        BigInteger publicExponent = new BigInteger(1, Base64.getUrlDecoder().decode(modulusExponent.getValue().toString()));
+        BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(modulusExponent.getModulus()));
+        BigInteger publicExponent = new BigInteger(1, Base64.getUrlDecoder().decode(modulusExponent.getExponent()));
 
         RSAPublicKey publicKey;//Get the key instance
 
@@ -101,7 +103,7 @@ class JWTHelper {
         }
     }
 
-    private static Pair GetModulusAndExponent(String kid) throws Exception {
+    private static Key GetModulusAndExponent(String kid) throws Exception {
         URL obj = new URL("https://atlantisproject.b2clogin.com/atlantisproject.onmicrosoft.com/discovery/v2.0/keys?p=b2c_1_signuporsignin");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -121,16 +123,19 @@ class JWTHelper {
         JSONObject myResponse = new JSONObject(response.toString());
         JSONArray keys = (JSONArray) myResponse.get("keys");
 
+        Key newKey = new Key();
+
         for(int i =0; i<keys.length(); i++)
         {
             JSONObject object = (JSONObject) keys.get(i);
             if(object.get("kid").toString().equals(kid))
             {
-                modulus = object.get("n").toString();
-                exponent = object.get("e").toString();
+                newKey.setModulus(object.get("n").toString());
+                newKey.setExponent(exponent = object.get("e").toString());
+                break;
             }
         }
 
-        return new Pair(modulus, exponent);
+        return newKey;
     }
 }
