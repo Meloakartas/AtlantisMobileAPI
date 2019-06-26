@@ -3,10 +3,10 @@ package restapi.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import restapi.model.AuthError;
 import restapi.model.Device;
 import restapi.model.User;
 import restapi.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +22,7 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public ResponseEntity<?> user(@CookieValue(value = "id_token") String id_token) {
+        System.out.println("here");
         if(JWTHelper.isUserAuthenticated(id_token))
         {
             String userADid = Objects.requireNonNull(JWTHelper.ParseJWT(id_token)).getClaims().get("oid").asString();
@@ -31,7 +32,7 @@ public class UserController {
         }
         else
         {
-            return new ResponseEntity<>("Unauthorized access.",
+            return new ResponseEntity<>(new AuthError("Unauthorized access."),
                     HttpStatus.UNAUTHORIZED);
         }
     }
@@ -47,7 +48,7 @@ public class UserController {
         }
         else
         {
-            return new ResponseEntity<>("Unauthorized access.",
+            return new ResponseEntity<>(new AuthError("Unauthorized access."),
                     HttpStatus.UNAUTHORIZED);
         }
     }

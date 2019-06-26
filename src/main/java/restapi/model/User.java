@@ -77,11 +77,6 @@ public class User {
         return lastName + ' ' + firstName;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Customer[id=%d, userADid='%s', firstName='%s', lastName='%s']", id, userADid, firstName, lastName);
-    }
-
     public List<Device> getUserDevices() {
         return userDevices;
     }

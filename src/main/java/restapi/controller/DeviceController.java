@@ -3,7 +3,7 @@ package restapi.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import restapi.model.Device;
+import restapi.model.AuthError;
 import restapi.service.IDeviceService;
 
 @RestController
@@ -24,7 +24,7 @@ public class DeviceController {
         }
         else
         {
-            return new ResponseEntity<>("Unauthorized access.",
+            return new ResponseEntity<>(new AuthError("Unauthorized access."),
                     HttpStatus.UNAUTHORIZED);
         }
     }
