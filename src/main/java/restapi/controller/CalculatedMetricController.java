@@ -24,17 +24,18 @@ public class CalculatedMetricController {
     @GetMapping(value = "/calculatedMetrics")
 public ResponseEntity<?> calculatedMetrics(
             @CookieValue(value = "id_token") String id_token,
-            @RequestParam(value="deviceID", defaultValue="0") String deviceMacAddress,
-            @RequestParam(value="metricTypeID", defaultValue="0") String dateStart,
-            @RequestParam(value="dateBegin", defaultValue="0") String dateEnd,
-            @RequestParam(value="dateEnd", defaultValue="0") int calculationType,
+            @RequestParam(value="mac_address", defaultValue="0") String deviceMacAddress,
+            @RequestParam(value="calculation_type", defaultValue="0") String calculation_type,
+            @RequestParam(value="dateBegin", defaultValue="0") String dateBegin,
+            @RequestParam(value="dateEnd", defaultValue="0") int dateEnd,
             @RequestParam(value="step", defaultValue="0") String step) {
 
+        System.out.println("Asking for Calculated metrics");
         if(jwthelper.isUserAuthenticated(id_token))
         {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<List<CalculatedMetric>> response = restTemplate.exchange(
-                    "http://25.27.177.101:57086/ApiTest/api/CalculatedMetrics?macaddress="+deviceMacAddress+"&dateDebut="+dateStart+"&dateFin="+dateEnd+"&calculationtype="+calculationType+"&step="+step,
+                    "http://25.27.177.101:57086/ApiTest/api/CalculatedMetrics?macaddress="+deviceMacAddress+"&dateDebut="+dateBegin+"&dateFin="+dateEnd+"&calculationtype="+calculation_type+"&step="+step,
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<CalculatedMetric>>(){});

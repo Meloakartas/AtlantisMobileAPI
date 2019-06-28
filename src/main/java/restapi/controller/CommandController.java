@@ -36,6 +36,7 @@ public class CommandController {
             @RequestParam(value="id", defaultValue="0") long id,
             @RequestParam(value="mac_address", defaultValue="0") String mac_address) {
 
+        System.out.println("Sending a command");
         if(jwthelper.isUserAuthenticated(id_token))
         {
             Command command = new Command(id, mac_address);
