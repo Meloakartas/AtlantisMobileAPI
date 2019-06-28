@@ -1,5 +1,6 @@
 package restapi.controller;
 
+import com.google.gson.Gson;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -40,7 +41,10 @@ public class CommandController {
         if(jwthelper.isUserAuthenticated(id_token))
         {
             Command command = new Command(id, mac_address);
-            StringEntity entity = new StringEntity(command.toString(),
+            Gson gson = new Gson();
+            String commandString = gson.toJson(command);
+            System.out.println("Command sent : " + commandString);
+            StringEntity entity = new StringEntity(commandString,
                     ContentType.APPLICATION_JSON);
 
             HttpClient httpClient = HttpClientBuilder.create().build();

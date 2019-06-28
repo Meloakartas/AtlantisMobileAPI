@@ -27,7 +27,7 @@ public ResponseEntity<?> calculatedMetrics(
             @RequestParam(value="mac_address", defaultValue="0") String deviceMacAddress,
             @RequestParam(value="calculation_type", defaultValue="0") String calculation_type,
             @RequestParam(value="dateBegin", defaultValue="0") String dateBegin,
-            @RequestParam(value="dateEnd", defaultValue="0") int dateEnd,
+            @RequestParam(value="dateEnd", defaultValue="0") String dateEnd,
             @RequestParam(value="step", defaultValue="0") String step) {
 
         System.out.println("Asking for Calculated metrics");
