@@ -31,11 +31,17 @@ public ResponseEntity<?> calculatedMetrics(
             @RequestParam(value="step", defaultValue="0") String step) {
 
         System.out.println("Asking for Calculated metrics");
+        System.out.println("MAC ADDRESS : " + deviceMacAddress);
+        System.out.println("CALCULATION TYPE : " + calculation_type);
+        System.out.println("DATE BEGIN : " + dateBegin);
+        System.out.println("DATE END : " + dateEnd);
+        System.out.println("STEP : " + step);
+
         if(jwthelper.isUserAuthenticated(id_token))
         {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<List<CalculatedMetric>> response = restTemplate.exchange(
-                    "http://25.27.177.101:57086/api/CalculatedMetric?macaddress="+deviceMacAddress+"&dateDebut="+dateBegin+"&dateFin="+dateEnd+"&calculationtype="+calculation_type+"&step="+step,
+                    "http://25.27.177.101:57086/api/CalculatedMetric/?step="+step+"&calculationtype="+calculation_type+"&macaddress="+deviceMacAddress+"&dateDebut="+dateBegin+"&dateFin="+dateEnd,
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<CalculatedMetric>>(){});
