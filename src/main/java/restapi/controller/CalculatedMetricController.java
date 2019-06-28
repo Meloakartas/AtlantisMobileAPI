@@ -2,11 +2,10 @@ package restapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import restapi.model.AuthError;
 import restapi.model.CalculatedMetric;
 
@@ -39,11 +38,26 @@ public ResponseEntity<?> calculatedMetrics(
 
         if(jwthelper.isUserAuthenticated(id_token))
         {
+            String url = "http://25.27.177.101:57086/api/CalculatedMetric/";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+            HttpEntity<?> entity = new HttpEntity<>(headers);
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+                    .queryParam("step", step)
+                    .queryParam("calculationtype", calculation_type)
+                    .queryParam("macaddress", deviceMacAddress)
+                    .queryParam("dateDebut", dateBegin)
+                    .queryParam("dateFin", dateEnd);
+
+            System.out.println("FINAL URL : " + uriBuilder.toUriString());
+
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<List<CalculatedMetric>> response = restTemplate.exchange(
-                    "http://25.27.177.101:57086/api/CalculatedMetric/?step="+step+"&calculationtype="+calculation_type+"&macaddress="+deviceMacAddress+"&dateDebut="+dateBegin+"&dateFin="+dateEnd,
+                    uriBuilder.toUriString(),
                     HttpMethod.GET,
-                    null,
+                    entity,
                     new ParameterizedTypeReference<List<CalculatedMetric>>(){});
 
             return new ResponseEntity<>(response.getBody(),
