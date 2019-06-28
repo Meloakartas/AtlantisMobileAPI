@@ -12,6 +12,7 @@ import java.security.spec.RSAPublicKeySpec;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import org.springframework.stereotype.Component;
 import restapi.model.Key;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,14 +23,15 @@ import java.security.spec.RSAPrivateKeySpec;
 import java.util.Base64;
 import java.util.Objects;
 
-class JWTHelper {
+@Component
+public class JWTHelper  implements IJWTHelper{
 
-    static boolean isUserAuthenticated(String id_token)
+    public boolean isUserAuthenticated(String id_token)
     {
         return (id_token != null ? IsTokenValid(id_token) : null) != null;
     }
 
-    static DecodedJWT ParseJWT(String id_token)
+    public DecodedJWT ParseJWT(String id_token)
     {
         try {
             return JWT.decode(id_token);
@@ -38,7 +40,7 @@ class JWTHelper {
         }
     }
 
-    private static RSAPublicKey getPublicKeyUsingModulusAndExponent(BigInteger modulus, BigInteger exponent) {
+    public RSAPublicKey getPublicKeyUsingModulusAndExponent(BigInteger modulus, BigInteger exponent) {
         try {
             return (RSAPublicKey) KeyFactory.getInstance("RSA")
                     .generatePublic(new RSAPublicKeySpec(modulus, exponent));
@@ -47,7 +49,7 @@ class JWTHelper {
         }
     }
 
-    private static RSAPrivateKey getPrivateKeyUsingModulusAndExponent(BigInteger modulus, BigInteger exponent) {
+    public RSAPrivateKey getPrivateKeyUsingModulusAndExponent(BigInteger modulus, BigInteger exponent) {
         try {
             return (RSAPrivateKey) KeyFactory.getInstance("RSA")
                     .generatePrivate(new RSAPrivateKeySpec(modulus, exponent));
@@ -56,7 +58,7 @@ class JWTHelper {
         }
     }
 
-    private static DecodedJWT IsTokenValid(String id_token)
+    public DecodedJWT IsTokenValid(String id_token)
     {
         DecodedJWT jwt = ParseJWT(id_token);
         Key modulusExponent = null;
@@ -101,7 +103,7 @@ class JWTHelper {
         }
     }
 
-    private static Key GetModulusAndExponent(String kid) throws Exception {
+    public Key GetModulusAndExponent(String kid) throws Exception {
         URL obj = new URL("https://atlantisproject.b2clogin.com/atlantisproject.onmicrosoft.com/discovery/v2.0/keys?p=b2c_1_signuporsignin");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");

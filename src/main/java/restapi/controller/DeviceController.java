@@ -11,13 +11,17 @@ public class DeviceController {
 
     private final IDeviceService deviceService;
 
-    public DeviceController(IDeviceService deviceService) {
+    private final IJWTHelper jwthelper;
+
+    public DeviceController(IDeviceService deviceService, IJWTHelper jwthelper) {
         this.deviceService = deviceService;
+        this.jwthelper = jwthelper;
     }
 
     @GetMapping(value = "/device")
     public  ResponseEntity<?> device(@CookieValue(value = "id_token") String id_token, @RequestParam(value="deviceID", defaultValue="0") long deviceID) {
-        if(JWTHelper.isUserAuthenticated(id_token))
+        System.out.println("Getting device " + deviceID);
+        if(jwthelper.isUserAuthenticated(id_token))
         {
             return new ResponseEntity<>(deviceService.findDeviceById(deviceID),
                     HttpStatus.OK);
