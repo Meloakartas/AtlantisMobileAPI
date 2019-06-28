@@ -34,7 +34,7 @@ public ResponseEntity<?> calculatedMetrics(
         {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<List<CalculatedMetric>> response = restTemplate.exchange(
-                    "http://25.29.63.206:53144/ApiTest/api/CalculatedMetrics?device_macaddress="+"test",
+                    "http://25.27.177.101:57086/ApiTest/api/CalculatedMetrics?macaddress="+deviceMacAddress+"&dateDebut="+dateStart+"&dateFin="+dateEnd+"&calculationtype="+calculationType+"&step="+step,
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<CalculatedMetric>>(){});
