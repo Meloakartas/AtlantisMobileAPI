@@ -1,51 +1,34 @@
 package restapi.model;
 
 public class CalculatedMetric {
-    private Long id;
-    private Long deviceID;
-    private Long metricTypeID;
-    private String dateBegin;
+    private Long metric_Calculation_Type_ID;
+    private Long devicemacaddress;
+    private String dateStart;
     private String dateEnd;
-    private Double value;
+    private Double calculated_Metric_Value;
 
-    public Long getId() {
-        return id;
+    public Long getMetric_Calculation_Type_ID() {
+        return metric_Calculation_Type_ID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMetric_Calculation_Type_ID(Long metric_Calculation_Type_ID) {
+        this.metric_Calculation_Type_ID = metric_Calculation_Type_ID;
     }
 
-    public Long getDeviceID() {
-        return deviceID;
+    public Long getDevicemacaddress() {
+        return devicemacaddress;
     }
 
-    public void setDeviceID(Long deviceID) {
-        this.deviceID = deviceID;
+    public void setDevicemacaddress(Long devicemacaddress) {
+        this.devicemacaddress = devicemacaddress;
     }
 
-    public Long getMetricTypeID() {
-        return metricTypeID;
+    public String getDateStart() {
+        return dateStart;
     }
 
-    public void setMetricTypeID(Long metricTypeID) {
-        this.metricTypeID = metricTypeID;
-    }
-
-    public String getDateBegin() {
-        return dateBegin;
-    }
-
-    public void setDateBegin(String dateBegin) {
-        this.dateBegin = dateBegin;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
     }
 
     public String getDateEnd() {
@@ -54,5 +37,13 @@ public class CalculatedMetric {
 
     public void setDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public Double getCalculated_Metric_Value() {
+        return calculated_Metric_Value;
+    }
+
+    public void setCalculated_Metric_Value(Double calculated_Metric_Value) {
+        this.calculated_Metric_Value = calculated_Metric_Value;
     }
 }
