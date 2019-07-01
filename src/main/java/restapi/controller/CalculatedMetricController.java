@@ -9,6 +9,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import restapi.model.AuthError;
 import restapi.model.CalculatedMetric;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -41,7 +45,7 @@ public ResponseEntity<?> calculatedMetrics(
             String url = "http://25.27.177.101:57086/api/CalculatedMetric/";
 
             HttpHeaders headers = new HttpHeaders();
-            headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+            headers.setAccept(Collections.singletonList(MediaType.ALL));
 
             HttpEntity<?> entity = new HttpEntity<>(headers);
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
@@ -54,11 +58,18 @@ public ResponseEntity<?> calculatedMetrics(
             System.out.println("FINAL URL : " + uriBuilder.toUriString());
 
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<List<CalculatedMetric>> response = restTemplate.exchange(
-                    uriBuilder.toUriString(),
-                    HttpMethod.GET,
-                    entity,
-                    new ParameterizedTypeReference<List<CalculatedMetric>>(){});
+            ResponseEntity<List<CalculatedMetric>> response = null;
+            try {
+                response = restTemplate.exchange(
+                        URLDecoder.decode(uriBuilder.toUriString(), "UTF-8"),
+                        HttpMethod.GET,
+                        entity,
+                        new ParameterizedTypeReference<List<CalculatedMetric>>(){});
+            } catch (UnsupportedEncodingException e) {
+                System.out.println("ERROR ON URLDECODER !");
+            }
+
+            System.out.println("RESULT : " + response.getBody());
 
             return new ResponseEntity<>(response.getBody(),
                     HttpStatus.OK);
