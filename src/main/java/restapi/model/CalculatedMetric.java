@@ -4,63 +4,63 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CalculatedMetric {
-    private Long metric_Calculation_Type_ID;
-    private String devicemacaddress;
-    private String dateStart;
-    private String dateEnd;
-    private String calculated_Metric_Value;
+    private Long Metric_Calculation_Type_ID;
+    private String Devicemacaddress;
+    private String DateStart;
+    private String DateEnd;
+    private String Calculated_Metric_Value;
 
     public CalculatedMetric()
     {
 
     }
 
-    public CalculatedMetric(Long metric_Calculation_Type_ID, String devicemacaddress, String dateStart, String dateEnd, String calculated_Metric_Value)
+    public CalculatedMetric(Long Metric_Calculation_Type_ID, String Devicemacaddress, String DateStart, String DateEnd, String Calculated_Metric_Value)
     {
-        this.metric_Calculation_Type_ID = metric_Calculation_Type_ID;
-        this.devicemacaddress = devicemacaddress;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.calculated_Metric_Value = calculated_Metric_Value;
+        this.Metric_Calculation_Type_ID = Metric_Calculation_Type_ID;
+        this.Devicemacaddress = Devicemacaddress;
+        this.DateStart = DateStart;
+        this.DateEnd = DateEnd;
+        this.Calculated_Metric_Value = Calculated_Metric_Value;
     }
 
     public Long getMetric_Calculation_Type_ID() {
-        return metric_Calculation_Type_ID;
+        return Metric_Calculation_Type_ID;
     }
 
     public void setMetric_Calculation_Type_ID(Long metric_Calculation_Type_ID) {
-        this.metric_Calculation_Type_ID = metric_Calculation_Type_ID;
+        Metric_Calculation_Type_ID = metric_Calculation_Type_ID;
     }
 
     public String getDevicemacaddress() {
-        return devicemacaddress;
+        return Devicemacaddress;
     }
 
     public void setDevicemacaddress(String devicemacaddress) {
-        this.devicemacaddress = devicemacaddress;
+        Devicemacaddress = devicemacaddress;
     }
 
     public String getDateStart() {
-        return dateStart;
+        return DateStart;
     }
 
     public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
+        DateStart = dateStart;
     }
 
     public String getDateEnd() {
-        return dateEnd;
+        return DateEnd;
     }
 
     public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+        DateEnd = dateEnd;
     }
 
     public String getCalculated_Metric_Value() {
-        return calculated_Metric_Value;
+        return Calculated_Metric_Value;
     }
 
     public void setCalculated_Metric_Value(String calculated_Metric_Value) {
-        this.calculated_Metric_Value = calculated_Metric_Value;
+        Calculated_Metric_Value = calculated_Metric_Value;
     }
 }
