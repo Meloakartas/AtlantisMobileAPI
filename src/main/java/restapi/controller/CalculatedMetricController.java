@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import restapi.model.AuthError;
 import restapi.model.CalculatedMetric;
-import restapi.model.CalculatedMetricList;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -59,21 +58,23 @@ public ResponseEntity<?> calculatedMetrics(
             System.out.println("FINAL URL : " + uriBuilder.toUriString());
 
             RestTemplate restTemplate = new RestTemplate();
-            CalculatedMetricList response = null;
+            ResponseEntity<List<CalculatedMetric>> response = null;
             try {
-                response = restTemplate.getForObject(
+                response = restTemplate.exchange(
                         URLDecoder.decode(uriBuilder.toUriString(), "UTF-8"),
-                        CalculatedMetricList.class);
+                        HttpMethod.GET,
+                        entity,
+                        new ParameterizedTypeReference<List<CalculatedMetric>>(){});
             } catch (UnsupportedEncodingException e) {
                 System.out.println("ERROR ON URLDECODER !");
             }
 
-            List<CalculatedMetric> calculatedMetrics = response.getCalculatedMetrics();
+            List<CalculatedMetric> calculatedMetrics = response.getBody();
             System.out.println("RESULT : " + calculatedMetrics);
 
             calculatedMetrics.forEach((key) -> System.out.println(key.getDevicemacaddress()));
 
-            return new ResponseEntity<>(calculatedMetrics,
+            return new ResponseEntity<>(response.getBody(),
                     HttpStatus.OK);
         }
         else
