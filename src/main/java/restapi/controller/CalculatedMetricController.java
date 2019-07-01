@@ -69,9 +69,12 @@ public ResponseEntity<?> calculatedMetrics(
                 System.out.println("ERROR ON URLDECODER !");
             }
 
-            System.out.println("RESULT : " + response.getBody());
+            List<CalculatedMetric> calculatedMetrics = response.getBody();
+            System.out.println("RESULT : " + calculatedMetrics);
 
-            return new ResponseEntity<>(response.getBody(),
+            calculatedMetrics.forEach((key) -> System.out.println(key.getDevicemacaddress()));
+
+            return new ResponseEntity<>(calculatedMetrics,
                     HttpStatus.OK);
         }
         else

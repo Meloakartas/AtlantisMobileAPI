@@ -1,11 +1,28 @@
 package restapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CalculatedMetric {
     private Long metric_Calculation_Type_ID;
-    private Long devicemacaddress;
+    private String devicemacaddress;
     private String dateStart;
     private String dateEnd;
-    private Double calculated_Metric_Value;
+    private String calculated_Metric_Value;
+
+    public CalculatedMetric()
+    {
+
+    }
+
+    public CalculatedMetric(Long metric_Calculation_Type_ID, String devicemacaddress, String dateStart, String dateEnd, String calculated_Metric_Value)
+    {
+        this.metric_Calculation_Type_ID = metric_Calculation_Type_ID;
+        this.devicemacaddress = devicemacaddress;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.calculated_Metric_Value = calculated_Metric_Value;
+    }
 
     public Long getMetric_Calculation_Type_ID() {
         return metric_Calculation_Type_ID;
@@ -15,11 +32,11 @@ public class CalculatedMetric {
         this.metric_Calculation_Type_ID = metric_Calculation_Type_ID;
     }
 
-    public Long getDevicemacaddress() {
+    public String getDevicemacaddress() {
         return devicemacaddress;
     }
 
-    public void setDevicemacaddress(Long devicemacaddress) {
+    public void setDevicemacaddress(String devicemacaddress) {
         this.devicemacaddress = devicemacaddress;
     }
 
@@ -39,11 +56,11 @@ public class CalculatedMetric {
         this.dateEnd = dateEnd;
     }
 
-    public Double getCalculated_Metric_Value() {
+    public String getCalculated_Metric_Value() {
         return calculated_Metric_Value;
     }
 
-    public void setCalculated_Metric_Value(Double calculated_Metric_Value) {
+    public void setCalculated_Metric_Value(String calculated_Metric_Value) {
         this.calculated_Metric_Value = calculated_Metric_Value;
     }
 }
