@@ -58,23 +58,21 @@ public ResponseEntity<?> calculatedMetrics(
             System.out.println("FINAL URL : " + uriBuilder.toUriString());
 
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<List<CalculatedMetric>> response = null;
+            String response = null;
             try {
-                response = restTemplate.exchange(
+                response = restTemplate.getForObject(
                         URLDecoder.decode(uriBuilder.toUriString(), "UTF-8"),
-                        HttpMethod.GET,
-                        entity,
-                        new ParameterizedTypeReference<List<CalculatedMetric>>(){});
+                        String.class);
             } catch (UnsupportedEncodingException e) {
                 System.out.println("ERROR ON URLDECODER !");
             }
 
-            List<CalculatedMetric> calculatedMetrics = response.getBody();
-            System.out.println("RESULT : " + calculatedMetrics);
+//            List<CalculatedMetric> calculatedMetrics = response.getBody();
+//            System.out.println("RESULT : " + calculatedMetrics);
+//
+//            calculatedMetrics.forEach((key) -> System.out.println(key.getDevicemacaddress()));
 
-            calculatedMetrics.forEach((key) -> System.out.println(key.getDevicemacaddress()));
-
-            return new ResponseEntity<>(response.getBody(),
+            return new ResponseEntity<>(response,
                     HttpStatus.OK);
         }
         else
